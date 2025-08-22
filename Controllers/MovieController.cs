@@ -1,10 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Movie_Hub.Model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+
 
 namespace Movie_Hub.Controllers
 {
@@ -16,6 +13,10 @@ namespace Movie_Hub.Controllers
 
         public MoviesController(MovieCollectionContext ctx) => _ctx = ctx;
 
+        //public MoviesController(MovieCollectionContext ctx)
+        //{
+        //    _ctx = ctx;
+        //}
         // GET: api/movies
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Movie>>> Get() =>
