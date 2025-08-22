@@ -5,7 +5,7 @@ namespace Movie_Hub.Model
     public class MovieCollectionContext : DbContext
     {
         public DbSet<Movie> Movies { get; set; }
-        public MovieCollectionContext(DbContextOptions options) : base(options)
+        public MovieCollectionContext(DbContextOptions<MovieCollectionContext> options) : base(options)
         {
 
         }

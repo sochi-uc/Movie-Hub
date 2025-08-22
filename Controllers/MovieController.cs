@@ -1,24 +1,25 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using MovieApi.Data;
-using MovieApi.Models;
+using Movie_Hub.Model;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace MovieApi.Controllers
+namespace Movie_Hub.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
     public class MoviesController : ControllerBase
     {
-        private readonly AppDbContext _ctx;
-        public MoviesController(AppDbContext ctx) => _ctx = ctx;
+        private readonly MovieCollectionContext _ctx;
+
+        public MoviesController(MovieCollectionContext ctx) => _ctx = ctx;
 
         // GET: api/movies
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Movie>>> Get()
-        {
-            return await _ctx.Movies.ToListAsync();
-        }
+        public async Task<ActionResult<IEnumerable<Movie>>> Get() =>
+            await _ctx.Movies.ToListAsync();
 
         // GET: api/movies/search?name=Inception&genre=Sci-Fi
         [HttpGet("search")]
@@ -55,8 +56,14 @@ namespace MovieApi.Controllers
         {
             if (id != movie.Id) return BadRequest();
             _ctx.Entry(movie).State = EntityState.Modified;
-            try { await _ctx.SaveChangesAsync(); }
-            catch (DbUpdateConcurrencyException) when (!_ctx.Movies.Any(e => e.Id == id)) { return NotFound(); }
+            try
+            {
+                await _ctx.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException) when (!_ctx.Movies.Any(e => e.Id == id))
+            {
+                return NotFound();
+            }
             return NoContent();
         }
 
