@@ -19,8 +19,7 @@ builder.Services.AddDbContext<MovieCollectionContext>(options =>
 );
 
 var app = builder.Build();
-
-// Enable Swagger in Development
+  // Enable Swagger in Development    
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
