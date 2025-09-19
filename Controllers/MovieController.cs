@@ -34,6 +34,7 @@ namespace Movie_Hub.Controllers
 
         // GET: api/movies/5
         [HttpGet("{id}")]
+
         public async Task<ActionResult<Movie>> Get(int id)
         {
             var m = await _ctx.Movies.FindAsync(id);
